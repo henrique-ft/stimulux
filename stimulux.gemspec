@@ -8,8 +8,8 @@ Gem::Specification.new do |spec|
   spec.authors = ['henrique-ft']
   spec.email = ['hriqueft@gmail.com']
 
-  spec.summary = "Stimulus, without brain gymnastics. Helpers for Phlex and HtmlSlice 'data-' atributes generation"
-  spec.description = "Stimulus, without brain gymnastics. Helpers for Phlex and HtmlSlice 'data-' atributes generation"
+  spec.summary = "Stimulus, without brain gymnastics: helpers for Phlex and HtmlSlice 'data-' atributes generation"
+  spec.description = "Stimulus, without brain gymnastics: helpers for Phlex and HtmlSlice 'data-' atributes generation"
   spec.license = 'MIT'
   spec.required_ruby_version = '>= 3.1.0'
 
