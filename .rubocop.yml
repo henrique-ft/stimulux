@@ -1,8 +1,22 @@
 AllCops:
   TargetRubyVersion: 3.1
+  NewCops: enable
+  SuggestExtensions: false
+  Exclude:
+    - 'bin/**/*'
+    - 'examples/**/*'
+    - 'spec/**/*'
+    - 'sig/**/*'
+    - 'vendor/**/*'
+    - 'tmp/**/*'
+    - '.git/**/*'
+    - '*.gemspec'
+    - 'Rakefile'
+    - 'Gemfile'
+    - 'idea.rb'
 
-Style/StringLiterals:
-  EnforcedStyle: double_quotes
+Metrics/MethodLength:
+  Max: 20
 
-Style/StringLiteralsInInterpolation:
-  EnforcedStyle: double_quotes
+Style/Documentation:
+  Enabled: false
