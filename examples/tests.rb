@@ -1,8 +1,11 @@
+# frozen_string_literal: true
+
 # gem install html_slice
 # gem install phlex
 
 require 'html_slice'
 require 'phlex'
+# require 'stimulux'
 
 require_relative '../lib/stimulux'
 
@@ -13,17 +16,15 @@ end
 
 # frozen_string_literal: true
 
-require "benchmark"
-require "byebug"
-require "phlex"
-require "phlex/version"
-require "html_slice"
+require 'benchmark'
+require 'byebug'
+require 'phlex/version'
 
-CALLS_NUMBER = 100
-TAGS_NUMBER = 5000
+CALLS_NUMBER = 10
+TAGS_NUMBER = 1000
 
 class RunRawPhlex < Phlex::HTML
-  def initialize text = "Benchmark"
+  def initialize(text = 'Benchmark')
     @text = text
   end
 
@@ -31,6 +32,9 @@ class RunRawPhlex < Phlex::HTML
     div do
       (0..TAGS_NUMBER).each do |i|
         h1(style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something') { @text }
+        div 'data-controller': 'searchName', 'data-search-name-name-value': "a#{i}" do
+          input type: 'text', 'data-search-name-target': 'some'
+        end
       end
     end
   end
@@ -39,7 +43,7 @@ end
 class RunPhlex < Phlex::HTML
   include Stimulux
 
-  def initialize text = "Benchmark"
+  def initialize(text = 'Benchmark')
     @text = text
   end
 
@@ -47,7 +51,7 @@ class RunPhlex < Phlex::HTML
     div do
       (0..TAGS_NUMBER).each do |i|
         h1(style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something') { @text }
-        div **controllers(['searchName', { name: 'something' }]) do
+        div(**controllers(['searchName', { name: "a#{i}" }])) do
           input type: 'text', **targets('searchName#some')
         end
       end
@@ -55,11 +59,10 @@ class RunPhlex < Phlex::HTML
   end
 end
 
-
 class RunRawHtmlSlice
   include HtmlSlice
 
-  def initialize text = "Benchmark"
+  def initialize(text = 'Benchmark')
     @text = text
   end
 
@@ -68,6 +71,9 @@ class RunRawHtmlSlice
       div do
         (0..TAGS_NUMBER).each do |i|
           h1 @text, style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something'
+          div 'data-controller': 'searchName', 'data-search-name-name-value': "a#{i}" do
+            input type: 'text', 'data-search-name-target': 'some'
+          end
         end
       end
     end
@@ -78,7 +84,7 @@ class RunHtmlSlice
   include HtmlSlice
   include Stimulux
 
-  def initialize text = "Benchmark"
+  def initialize(text = 'Benchmark')
     @text = text
   end
 
@@ -87,7 +93,7 @@ class RunHtmlSlice
       div do
         (0..TAGS_NUMBER).each do |i|
           h1 @text, style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something'
-          div **controllers(['searchName', { name: 'something' }]) do
+          div(**controllers(['searchName', { name: "a#{i}" }])) do
             input type: 'text', **targets('searchName#some')
           end
         end
