@@ -172,6 +172,30 @@ Stimulux.classes(
 #    }
 ```
 
+## Performance
+
+This benchmark shows the performance effect on Phlex and HtmlSlice rendering 10000 divs with `**controllers` and `**targets` helpers. Note that this is a very unusual case. Most of the time we will use 1 to 10 helpers at a same time.
+
+```bash
+                                      user     system      total        real
+raw phlex v1.11.0                 0.049055   0.000000   0.049055 (  0.049057)
+phlex v1.11.0 using stimulux      0.166384   0.000839   0.167223 (  0.167249)
+raw html_slice v0.2.4             0.094993   0.001005   0.095998 (  0.096003)
+html_slice v0.2.4 using stimulux  0.216557   0.001040   0.217597 (  0.217603)
+```
+
+In most realistic scenarios (the test below renders div elements with Stimulux helpers 100 times), there is almost no performance difference:
+
+```bash
+                                      user     system      total        real
+raw phlex v1.11.0                 0.001983   0.000000   0.001983 (  0.001980)
+phlex v1.11.0 using stimulux      0.002300   0.000072   0.002372 (  0.002376)
+raw html_slice v0.2.4             0.002512   0.000000   0.002512 (  0.002515)
+html_slice v0.2.4 using stimulux  0.002955   0.000000   0.002955 (  0.002956)
+
+```
+
+
 ## Development
 
 After checking out the repo, run `bin/setup` to install dependencies. Then, run `rake spec` to run the tests. You can also run `bin/console` for an interactive prompt that will allow you to experiment.
