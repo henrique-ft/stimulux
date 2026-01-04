@@ -10,14 +10,19 @@ include Stimulux
 
 # data-controller="hello other" data-other-some-thing-value="hey"
 div **controllers('hello', ['other', { someThing: "hey" }]) do
-  # data-hello-target="name" data-other-target="ho"
-  input type: 'text', **targets('hello#name', 'other#ho')
 
-  # data-action="click->hello#greet"
-  button **actions('click->hello#greet')
+  # data-other-no-results-class='bg-gray-500'
+  div **classes(['other', { 'noResults' => 'bg-gray-500' }]) do
   
-  # data-hello-target="output"  data-other-target="letsGo"
-  span **targets('hello#output', 'other#letsGo')
+    # data-hello-target="name" data-other-target="ho"
+    input type: 'text', **targets('hello#name', 'other#ho')
+    
+    # data-action="click->hello#greet"
+    button **actions('click->hello#greet')
+    
+    # data-hello-target="output"  data-other-target="letsGo"
+    span **targets('hello#output', 'other#letsGo')
+  end
 end
 ```
 
