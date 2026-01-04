@@ -37,7 +37,7 @@ module Stimulux
     end
 
     stimulus_target.transform_keys { |key| "data-#{key}-target" }
-           .transform_values { |value| value.join(' ') }
+                   .transform_values { |value| value.join(' ') }
   end
 
   def stimulus_action(*names)
