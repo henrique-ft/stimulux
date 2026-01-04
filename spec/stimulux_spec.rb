@@ -33,6 +33,11 @@ RSpec.describe Stimulux do
       expected = { 'data-hello-target' => 'name', 'data-foo-bar-target' => 'baz' }
       expect(targets('hello#name', 'foo-bar#baz')).to eq(expected)
     end
+
+    it 'returns target data attributes' do
+      expected = { 'data-hello-target' => 'myName', 'data-foo-bar-target' => 'baz' }
+      expect(targets('hello#myName', 'foo-bar#baz')).to eq(expected)
+    end
   end
 
   describe '#actions' do
