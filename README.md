@@ -1,3 +1,5 @@
+![Stimulux](https://raw.githubusercontent.com/henrique-ft/stimulux/main/stimulux.png)
+
 # Stimulux
 
 Welcome to Stimulux! This gem provides a set of helpers to simplify the integration of Stimulus JS with Phlex components, focusing on generating the necessary `data-*` attributes with ease and precision.
