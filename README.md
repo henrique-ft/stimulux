@@ -1,4 +1,4 @@
-![Stimulux](https://raw.githubusercontent.com/henrique-ft/stimulux/main/stimulux.png)
+![Stimulux](https://raw.githubusercontent.com/henrique-ft/stimulux/main/stimulux-logo.png)
 
 # Stimulux
 
