@@ -1,7 +1,7 @@
 PATH
   remote: .
   specs:
-    stimulux (0.1.1)
+    stimulux (1.0.0)
 
 GEM
   remote: https://rubygems.org/
