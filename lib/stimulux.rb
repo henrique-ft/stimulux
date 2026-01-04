@@ -31,10 +31,13 @@ module Stimulux
   end
 
   def targets(*names)
-    names.each_with_object({}) do |name, hash|
+    targets = names.each_with_object(Hash.new { |h, k| h[k] = [] }) do |name, hash|
       controller, target_name = name.to_s.split('#')
-      hash["data-#{kebabize(controller)}-target"] = target_name
+      hash[kebabize(controller)] << target_name
     end
+
+    targets.transform_keys { |key| "data-#{key}-target" }
+           .transform_values { |value| value.join(' ') }
   end
 
   def actions(*names)

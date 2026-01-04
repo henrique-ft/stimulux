@@ -1,28 +1,150 @@
 # Stimulux
 
-TODO: Delete this and the text below, and describe your gem
-
-Welcome to your new gem! In this directory, you'll find the files you need to be able to package up your Ruby library into a gem. Put your Ruby code in the file `lib/stimulux`. To experiment with that code, run `bin/console` for an interactive prompt.
+Welcome to Stimulux! This gem provides a set of helpers to simplify the integration of Stimulus JS with Phlex components, focusing on generating the necessary `data-*` attributes with ease and precision.
 
 ## Installation
 
-TODO: Replace `UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG` with your gem name right after releasing it to RubyGems.org. Please do not do it earlier due to security reasons. Alternatively, replace this section with instructions to install your gem from git if you don't plan to release to RubyGems.org.
+Add this line to your application's Gemfile:
 
-Install the gem and add to the application's Gemfile by executing:
-
-```bash
-bundle add UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+```ruby
+gem 'stimulux'
 ```
 
-If bundler is not being used to manage dependencies, install the gem by executing:
+And then execute:
 
 ```bash
-gem install UPDATE_WITH_YOUR_GEM_NAME_IMMEDIATELY_AFTER_RELEASE_TO_RUBYGEMS_ORG
+$ bundle install
+```
+
+Or install it yourself as:
+
+```bash
+$ gem install stimulux
 ```
 
 ## Usage
 
-TODO: Write usage instructions here
+Stimulux offers a variety of helpers to generate `data-*` attributes for Stimulus controllers, actions, targets, and classes.
+
+### `controllers(*args)`
+
+This helper generates the `data-controller` attribute, along with any specified `data-` values. You can pass multiple controller names as strings or symbols. To pass values, you can use a hash with the controller name as the key.
+
+**Simple Controller:**
+
+```ruby
+Stimulux.controllers('my-controller')
+# => { 'data-controller' => 'my-controller' }
+```
+
+**Multiple Controllers:**
+
+```ruby
+Stimulux.controllers('controller-one', 'controller-two')
+# => { 'data-controller' => 'controller-one controller-two' }
+```
+
+**Controller with Values:**
+
+When you need to pass values to a Stimulus controller, you can use an array where the first element is the controller's name and the second is a hash of values.
+
+```ruby
+Stimulux.controllers(['my-controller', { url: '/path', count: 1 }])
+# => {
+#      'data-controller' => 'my-controller',
+#      'data-my-controller-url-value' => '/path',
+#      'data-my-controller-count-value' => 1
+#    }
+```
+
+**Combining Multiple Controllers and Values:**
+
+```ruby
+Stimulux.controllers('controller-one', ['my-controller', { url: '/path', count: 1 }])
+# => {
+#      'data-controller' => 'controller-one my-controller',
+#      'data-my-controller-url-value' => '/path',
+#      'data-my-controller-count-value' => 1
+#    }
+```
+
+### `actions(*names)`
+
+This helper generates the `data-action` attribute. You can pass multiple action strings.
+
+```ruby
+Stimulux.actions('click->my-controller#action')
+# => { 'data-action' => 'click->my-controller#action' }
+```
+
+**Multiple Actions:**
+
+```ruby
+Stimulux.actions('click->my-controller#action', 'mouseover->my-controller#anotherAction')
+# => { 'data-action' => 'click->my-controller#action mouseover->my-controller#anotherAction' }
+```
+
+### `targets(*names)`
+
+This helper generates `data-` target attributes. The target name should be in the format `controller-name#target-name`.
+
+```ruby
+Stimulux.targets('my-controller#my-target')
+# => { 'data-my-controller-target' => 'my-target' }
+```
+
+**Multiple Targets for the same controller:**
+
+```ruby
+Stimulux.targets('my-controller#target-one', 'my-controller#target-two')
+# => { 'data-my-controller-target' => 'target-one target-two' }
+```
+
+**Multiple Targets for different controllers:**
+
+```ruby
+Stimulux.targets('my-controller#target-one', 'another-controller#target-two')
+# => {
+#      'data-my-controller-target' => 'target-one',
+#      'data-another-controller-target' => 'target-two'
+#    }
+```
+
+### `classes(*definitions)`
+
+This helper generates `data-` class attributes. It takes a hash where the keys are controller names and the values are hashes of class mappings.
+
+```ruby
+Stimulux.classes(
+  'my-controller' => {
+    loading: 'is-loading',
+    loaded: 'is-loaded'
+  }
+)
+# => {
+#      'data-my-controller-loading-class' => 'is-loading',
+#      'data-my-controller-loaded-class' => 'is-loaded'
+#    }
+```
+
+**Multiple Controllers with Classes:**
+
+```ruby
+Stimulux.classes(
+  'my-controller' => {
+    loading: 'is-loading',
+    loaded: 'is-loaded'
+  },
+  'another-controller' => {
+    active: 'is-active'
+  }
+)
+# => {
+#      'data-my-controller-loading-class' => 'is-loading',
+#      'data-my-controller-loaded-class' => 'is-loaded',
+#      'data-another-controller-active-class' => 'is-active'
+#    }
+```
 
 ## Development
 
@@ -32,7 +154,7 @@ To install this gem onto your local machine, run `bundle exec rake install`. To 
 
 ## Contributing
 
-Bug reports and pull requests are welcome on GitHub at https://github.com/[USERNAME]/stimulux.
+Bug reports and pull requests are welcome on GitHub at https://github.com/henrique-ft/stimulux.
 
 ## License
 
