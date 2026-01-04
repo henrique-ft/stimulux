@@ -2,7 +2,24 @@
 
 # Stimulux
 
-Welcome to Stimulux! This gem provides a set of helpers to simplify the integration of Stimulus JS with Phlex components, focusing on generating the necessary `data-*` attributes with ease and precision.
+Welcome to Stimulux! This gem provides a set of helpers to simplify the integration of Stimulus JS with [Phlex](https://www.phlex.fun/) components and [HtmlSlice](https://github.com/henrique-ft/html_slice), focusing on generating the necessary `data-*` attributes with ease and precision.
+
+```ruby
+# ... inside our component
+include Stimulux
+
+# data-controller="hello other" data-other-some-thing-value="hey"
+div **controllers('hello', ['other', { someThing: "hey" }]) do
+  # data-hello-target="name" data-other-target="ho"
+  input type: 'text', **targets('hello#name', 'other#ho')
+
+  # data-action="click->hello#greet"
+  button **actions('click->hello#greet')
+  
+  # data-hello-target="output"  data-other-target="letsGo"
+  span **targets('hello#output', 'other#letsGo')
+end
+```
 
 ## Installation
 
