@@ -4,6 +4,8 @@
 
 Welcome to Stimulux! This gem provides a set of helpers to simplify the integration of Stimulus JS with [Phlex](https://www.phlex.fun/) and [HtmlSlice](https://github.com/henrique-ft/html_slice) components, focusing on generating the necessary `data-*` attributes with ease and precision.
 
+The goal is to improve productivity and legibility while working with Stimulus inside Ruby html generation gems.
+
 ```ruby
 # ... inside our component
 include Stimulux
