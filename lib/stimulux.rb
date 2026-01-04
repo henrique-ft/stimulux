@@ -5,7 +5,7 @@ require_relative 'stimulux/version'
 module Stimulux
   extend self
 
-  def controllers(*args)
+  def stimulus_controller(*args)
     controller_names = []
     value_attributes = {}
 
@@ -30,21 +30,21 @@ module Stimulux
     { 'data-controller' => controller_names.join(' ') }.merge(value_attributes)
   end
 
-  def targets(*names)
-    targets = names.each_with_object(Hash.new { |h, k| h[k] = [] }) do |name, hash|
+  def stimulus_target(*names)
+    stimulus_target = names.each_with_object(Hash.new { |h, k| h[k] = [] }) do |name, hash|
       controller, target_name = name.to_s.split('#')
       hash[kebabize(controller)] << target_name
     end
 
-    targets.transform_keys { |key| "data-#{key}-target" }
-           .transform_values { |value| value.join(' ') }
+    stimulus_target.transform_keys { |key| "data-#{key}-target" }
+                   .transform_values { |value| value.join(' ') }
   end
 
-  def actions(*names)
+  def stimulus_action(*names)
     { 'data-action' => names.join(' ') }
   end
 
-  def classes(*definitions)
+  def stimulus_class(*definitions)
     definitions.each_with_object({}) do |(name, classes_hash), hash|
       controller_name = kebabize(name)
       classes_hash.each do |key, value|

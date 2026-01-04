@@ -11,19 +11,19 @@ The goal is to improve productivity and legibility while working with Stimulus i
 include Stimulux
 
 # data-controller="hello other" data-other-some-thing-value="hey"
-div **controllers('hello', ['other', { someThing: "hey" }]) do
+div **stimulus_controller('hello', ['other', { someThing: "hey" }]) do
 
   # data-other-no-results-class='bg-gray-500'
-  div **classes(['other', { 'noResults' => 'bg-gray-500' }]) do
+  div **stimulus_class(['other', { 'noResults' => 'bg-gray-500' }]) do
   
     # data-hello-target="name" data-other-target="ho"
-    input type: 'text', **targets('hello#name', 'other#ho')
+    input type: 'text', **stimulus_target('hello#name', 'other#ho')
     
     # data-action="click->hello#greet"
-    button **actions('click->hello#greet')
+    button **stimulus_action('click->hello#greet')
     
     # data-hello-target="output"  data-other-target="letsGo"
-    span **targets('hello#output', 'other#letsGo')
+    span **stimulus_target('hello#output', 'other#letsGo')
   end
 end
 ```
@@ -52,21 +52,21 @@ $ gem install stimulux
 
 Stimulux offers a variety of helpers to generate `data-*` attributes for Stimulus controllers, actions, targets, and classes.
 
-### `controllers(*args)`
+### `stimulus_controller(*args)`
 
 This helper generates the `data-controller` attribute, along with any specified `data-` values. You can pass multiple controller names as strings or symbols. To pass values, you can use a hash with the controller name as the key.
 
 **Simple Controller:**
 
 ```ruby
-Stimulux.controllers('my-controller')
+Stimulux.stimulus_controller('my-controller')
 # => { 'data-controller' => 'my-controller' }
 ```
 
 **Multiple Controllers:**
 
 ```ruby
-Stimulux.controllers('controller-one', 'controller-two')
+Stimulux.stimulus_controller('controller-one', 'controller-two')
 # => { 'data-controller' => 'controller-one controller-two' }
 ```
 
@@ -75,7 +75,7 @@ Stimulux.controllers('controller-one', 'controller-two')
 When you need to pass values to a Stimulus controller, you can use an array where the first element is the controller's name and the second is a hash of values.
 
 ```ruby
-Stimulux.controllers(['my-controller', { url: '/path', count: 1 }])
+Stimulux.stimulus_controller(['my-controller', { url: '/path', count: 1 }])
 # => {
 #      'data-controller' => 'my-controller',
 #      'data-my-controller-url-value' => '/path',
@@ -86,7 +86,7 @@ Stimulux.controllers(['my-controller', { url: '/path', count: 1 }])
 **Combining Multiple Controllers and Values:**
 
 ```ruby
-Stimulux.controllers('controller-one', ['my-controller', { url: '/path', count: 1 }])
+Stimulux.stimulus_controller('controller-one', ['my-controller', { url: '/path', count: 1 }])
 # => {
 #      'data-controller' => 'controller-one my-controller',
 #      'data-my-controller-url-value' => '/path',
@@ -94,54 +94,54 @@ Stimulux.controllers('controller-one', ['my-controller', { url: '/path', count: 
 #    }
 ```
 
-### `actions(*names)`
+### `stimulus_action(*names)`
 
 This helper generates the `data-action` attribute. You can pass multiple action strings.
 
 ```ruby
-Stimulux.actions('click->my-controller#action')
+Stimulux.stimulus_action('click->my-controller#action')
 # => { 'data-action' => 'click->my-controller#action' }
 ```
 
 **Multiple Actions:**
 
 ```ruby
-Stimulux.actions('click->my-controller#action', 'mouseover->my-controller#anotherAction')
+Stimulux.stimulus_action('click->my-controller#action', 'mouseover->my-controller#anotherAction')
 # => { 'data-action' => 'click->my-controller#action mouseover->my-controller#anotherAction' }
 ```
 
-### `targets(*names)`
+### `stimulus_target(*names)`
 
 This helper generates `data-` target attributes. The target name should be in the format `controller-name#target-name`.
 
 ```ruby
-Stimulux.targets('my-controller#my-target')
+Stimulux.stimulus_target('my-controller#my-target')
 # => { 'data-my-controller-target' => 'my-target' }
 ```
 
 **Multiple Targets for the same controller:**
 
 ```ruby
-Stimulux.targets('my-controller#target-one', 'my-controller#target-two')
+Stimulux.stimulus_target('my-controller#target-one', 'my-controller#target-two')
 # => { 'data-my-controller-target' => 'target-one target-two' }
 ```
 
 **Multiple Targets for different controllers:**
 
 ```ruby
-Stimulux.targets('my-controller#target-one', 'another-controller#target-two')
+Stimulux.stimulus_target('my-controller#target-one', 'another-controller#target-two')
 # => {
 #      'data-my-controller-target' => 'target-one',
 #      'data-another-controller-target' => 'target-two'
 #    }
 ```
 
-### `classes(*definitions)`
+### `stimulus_class(*definitions)`
 
 This helper generates `data-` class attributes. It takes a hash where the keys are controller names and the values are hashes of class mappings.
 
 ```ruby
-Stimulux.classes(
+Stimulux.stimulus_class(
   'my-controller' => {
     loading: 'is-loading',
     loaded: 'is-loaded'
@@ -156,7 +156,7 @@ Stimulux.classes(
 **Multiple Controllers with Classes:**
 
 ```ruby
-Stimulux.classes(
+Stimulux.stimulus_class(
   'my-controller' => {
     loading: 'is-loading',
     loaded: 'is-loaded'
@@ -174,7 +174,7 @@ Stimulux.classes(
 
 ## Performance
 
-This benchmark shows the performance effect on Phlex and HtmlSlice rendering 10000 divs with `**controllers` and `**targets` helpers. Note that this is a very unusual case. Most of the time we will use 1 to 10 helpers at a same time.
+This benchmark shows the performance effect on Phlex and HtmlSlice rendering 10000 divs with `**stimulus_controller` and `**stimulus_target` helpers. Note that this is a very unusual case. Most of the time we will use 1 to 10 helpers at a same time.
 
 ```bash
                                       user     system      total        real

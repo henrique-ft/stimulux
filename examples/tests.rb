@@ -51,8 +51,8 @@ class RunPhlex < Phlex::HTML
     div do
       (0..TAGS_NUMBER).each do |i|
         h1(style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something') { @text }
-        div(**controllers(['searchName', { name: "a#{i}" }])) do
-          input type: 'text', **targets('searchName#some')
+        div(**stimulus_controller(['searchName', { name: "a#{i}" }])) do
+          input type: 'text', **stimulus_target('searchName#some')
         end
       end
     end
@@ -93,8 +93,8 @@ class RunHtmlSlice
       div do
         (0..TAGS_NUMBER).each do |i|
           h1 @text, style: "a#{i}", id: i, class: 'c', role: 'd', a_attribute: 'something'
-          div(**controllers(['searchName', { name: "a#{i}" }])) do
-            input type: 'text', **targets('searchName#some')
+          div(**stimulus_controller(['searchName', { name: "a#{i}" }])) do
+            input type: 'text', **stimulus_target('searchName#some')
           end
         end
       end
